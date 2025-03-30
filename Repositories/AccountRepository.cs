@@ -78,7 +78,7 @@ namespace AccountService.Repositories
             new User() { Id = 6, FirstName = "Charles", LastName = "Burns", Age = 81 },
         };
 
-        private readonly Addresses[] Addresses = new[]
+        private readonly Addresses[] Addresses = new[] 
         {
             new Addresses() { UserId = 5, ShippingAddress = new Address() { Street = "742 Evergreen Terrace", Town = "Springfield", Country = "USA" } },
             new Addresses() { UserId = 6, ShippingAddress = new Address() { Street = "Springfield Power Plant", Town = "Springfield", Country = "USA" }, BillingAddress = new Address() { Street = "1000 Mammon Lane", Town = "Springfield", Country = "USA" } },

@@ -2,7 +2,7 @@
 
 namespace AccountService.Repositories
 {
-	[Owned]
+	[Owned] 
     public class Address
     {
 		public string Street { get; set; }

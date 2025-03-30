@@ -17,18 +17,15 @@ namespace AccountService.Data
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			// Define primary key on UserId for Addresses
 			modelBuilder.Entity<Addresses>()
-				.HasKey(a => a.UserId);  // Set UserId as the primary key for Addresses
+				.HasKey(a => a.UserId);  
 
-			// Configure the relationship between Addresses and User
 			modelBuilder.Entity<Addresses>()
-				.HasOne<User>()  // Addresses has one User
-				.WithOne()  // User has one Addresses
-				.HasForeignKey<Addresses>(a => a.UserId)  // Foreign key is UserId in Addresses
-				.OnDelete(DeleteBehavior.Cascade);  // Optionally, set delete behavior
+				.HasOne<User>()  
+				.WithOne()  
+				.HasForeignKey<Addresses>(a => a.UserId)  
+				.OnDelete(DeleteBehavior.Cascade);  
 
-			// Configure owned ShippingAddress
 			modelBuilder.Entity<Addresses>()
 				.OwnsOne(a => a.ShippingAddress, sa =>
 				{
@@ -37,7 +34,6 @@ namespace AccountService.Data
 					sa.Property(s => s.Country).HasColumnName("ShippingCountry");
 				});
 
-			// Configure owned BillingAddress
 			modelBuilder.Entity<Addresses>()
 				.OwnsOne(a => a.BillingAddress, ba =>
 				{
@@ -60,35 +56,35 @@ namespace AccountService.Data
 				new Account() { Id = 3, UserId = 6, EmailAddress = "charles_m_burns@fission.com" }
 			);
 
-			// Seed Addresses with explicit associations to Users
+			// Seed Addresses 
 			modelBuilder.Entity<Addresses>().HasData(
-				new Addresses { UserId = 5 }, // Homer
-				new Addresses { UserId = 6 }  // Charles
+				new Addresses { UserId = 5 }, 
+				new Addresses { UserId = 6 }  
 			);
 
-			// Seed ShippingAddress with explicit UserId
+			// Seed ShippingAddress 
 			modelBuilder.Entity<Addresses>().OwnsOne(a => a.ShippingAddress).HasData(
 				new
 				{
-					AddressesUserId = 5, // This is the foreign key
+					AddressesUserId = 5, 
 					Street = "742 Evergreen Terrace",
 					Town = "Springfield",
 					Country = "USA"
 				},
 				new
 				{
-					AddressesUserId = 6, // This is the foreign key
+					AddressesUserId = 6, 
 					Street = "Springfield Power Plant",
 					Town = "Springfield",
 					Country = "USA"
 				}
 			);
 
-			// Seed BillingAddress with explicit UserId
+			// Seed BillingAddress
 			modelBuilder.Entity<Addresses>().OwnsOne(a => a.BillingAddress).HasData(
 				new
 				{
-					AddressesUserId = 6, // This is the foreign key
+					AddressesUserId = 6,
 					Street = "1000 Mammon Lane",
 					Town = "Springfield",
 					Country = "USA"
